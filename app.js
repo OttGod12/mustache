@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+let arr_postagens = []
+
 
 
 //config handlebars
@@ -31,9 +33,13 @@ app.post('/cadastrarPostagem', function(req, res){
     //console.log(req.body.titulo)
     //console.log(req.body.conteudo)
     //res.send('Postagem Recebida')
-    res.render('postagens', {titulo: req.body.titulo, conteudo: req.body.conteudo})
+    arr_postagens.push({titulo: req.body.titulo, conteudo: req.body.conteudo})
+    res.render('postagens', {arr_postagens})
 })
 
+app.get('/postagens', function (req, res){
+    res.render('postagens', {arr_postagens})
+})
 
 
 app.listen(port, function(req, res){
